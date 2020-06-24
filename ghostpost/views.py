@@ -30,12 +30,14 @@ class BoastOrRoastViewSet(ModelViewSet):
     def only_boasts(self, request):
         boasts = BoastOrRoast.objects.all().filter(boast_or_roast=True)
         page = self.paginate_queryset(boasts)
-        if page is not None:
-            serializer = self.get_serializer(page, many=True)
-            return self.get_paginated_response(serializer.data)
+        serializer = self.get_serializer(boasts, many=True)
+        return Response(serializer.data)
 
 
     
     @action(detail=False)
     def only_roasts(self, request):
         roasts = BoastOrRoast.objects.all().filter(boast_or_roast=False)
+        page = self.paginate_queryset(roasts)
+        serializer = self.get_serializer(roasts, many=True)
+        return Response(serializer.data)
