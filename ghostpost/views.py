@@ -12,12 +12,14 @@ class BoastOrRoastViewSet(ModelViewSet):
     serializer_class = BoastOrRoastSerializer
     base_name = 'posts'
 
+
     @action(detail=True, methods=['get', 'post'])
     def up_vote(self, request, pk=None):
         post = self.get_object()
         post.up_votes += 1
         post.save()
         return Response({'status': 'You have up voted!'})
+
 
     @action(detail=True, methods=['get', 'post'])
     def down_vote(self, request, pk=None):
@@ -26,13 +28,13 @@ class BoastOrRoastViewSet(ModelViewSet):
         post.save()
         return Response({'status': 'You have down voted!'})
     
+
     @action(detail=False)
     def only_boasts(self, request):
         boasts = BoastOrRoast.objects.all().filter(boast_or_roast=True)
         page = self.paginate_queryset(boasts)
         serializer = self.get_serializer(boasts, many=True)
         return Response(serializer.data)
-
 
     
     @action(detail=False)
