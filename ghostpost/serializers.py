@@ -5,7 +5,7 @@ class BoastOrRoastSerializer(ModelSerializer):
     class Meta:
         model = BoastOrRoast
         fields = (
-            'boast', 
+            'boast_or_roast', 
             'title', 
             'post', 
             'up_votes', 
