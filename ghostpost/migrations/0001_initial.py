@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
             name='BoastOrRoast',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('boast_or_roast', models.BooleanField()),
+                ('boast', models.BooleanField()),
                 ('title', models.CharField(max_length=30)),
                 ('post', models.CharField(max_length=280)),
                 ('up_votes', models.IntegerField(default=0)),
