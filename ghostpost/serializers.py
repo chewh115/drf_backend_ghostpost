@@ -10,4 +10,5 @@ class BoastOrRoastSerializer(ModelSerializer):
             'post', 
             'up_votes', 
             'down_votes', 
-            'submit_time')
+            'submit_time',
+            'score')
