@@ -2,6 +2,8 @@ from django.shortcuts import render
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from django.http import JsonResponse
+from django.middleware.csrf import get_token
 from .serializers import BoastOrRoastSerializer
 from .models import BoastOrRoast
 
@@ -13,7 +15,7 @@ class BoastOrRoastViewSet(ModelViewSet):
     base_name = 'posts'
 
 
-    @action(detail=True, methods=['get', 'post'])
+    @action(detail=True, methods=['post'])
     def up_vote(self, request, pk=None):
         post = self.get_object()
         post.up_votes += 1
@@ -21,7 +23,7 @@ class BoastOrRoastViewSet(ModelViewSet):
         return Response({'status': 'You have up voted!'})
 
 
-    @action(detail=True, methods=['get', 'post'])
+    @action(detail=True, methods=['post'])
     def down_vote(self, request, pk=None):
         post = self.get_object()
         post.down_votes += 1
@@ -43,3 +45,7 @@ class BoastOrRoastViewSet(ModelViewSet):
         page = self.paginate_queryset(roasts)
         serializer = self.get_serializer(roasts, many=True)
         return Response(serializer.data)
+
+
+def csrf(request):
+    return JsonResponse({'csrfToken': get_token(request)})
